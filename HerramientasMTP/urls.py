@@ -21,3 +21,4 @@ urlpatterns = [
     path('GeneradorEvidencias/', include('GeneradorEvidencias.urls')),
     path('admin/', admin.site.urls),
 ]
+

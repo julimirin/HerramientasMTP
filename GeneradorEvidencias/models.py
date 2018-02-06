@@ -29,6 +29,7 @@ class Solicitud(models.Model):
     nombre_proyecto = models.CharField(max_length=200)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     plantilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
+    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/')
     entorno = models.ForeignKey(Entorno, on_delete=models.CASCADE)
     fase_de_prueba = models.ForeignKey(FasePrueba, on_delete=models.CASCADE)
     def __str__(self):
