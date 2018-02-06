@@ -24,6 +24,16 @@ class FasePrueba(models.Model):
     def __str__(self):
         return self.fase_de_prueba
 
+class Solicitud(models.Model):
+    codigo_proyecto = models.CharField(max_length=200)
+    nombre_proyecto = models.CharField(max_length=200)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    plantilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
+    entorno = models.ForeignKey(Entorno, on_delete=models.CASCADE)
+    fase_de_prueba = models.ForeignKey(FasePrueba, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.solicitud
+
 
 
 
