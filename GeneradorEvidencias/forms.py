@@ -2,6 +2,7 @@ from django import forms
 
 from .models import Solicitud, Cliente, Entorno, FasePrueba
 
+
 class PostSolicitud(forms.ModelForm):
 
     class Meta:
