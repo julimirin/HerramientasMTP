@@ -1,6 +1,7 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey, \
     ChainedManyToManyField, GroupedForeignKey
+from .validators import valid_extension
 
 
 class Cliente(models.Model):
@@ -31,7 +32,7 @@ class Solicitud(models.Model):
     nombre_proyecto = models.CharField(max_length=100)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     plantilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
-    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/')
+    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/', validators=[valid_extension])
     entorno = ChainedForeignKey(
         Entorno,
         chained_field="cliente",
@@ -48,8 +49,6 @@ class Solicitud(models.Model):
         sort=True)
     def __str__(self):
         return self.solicitud
-
-
 
 
 
