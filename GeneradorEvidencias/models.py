@@ -1,7 +1,6 @@
 from django.db import models
 from smart_selects.db_fields import ChainedForeignKey, \
     ChainedManyToManyField, GroupedForeignKey
-from .validators import valid_extension
 
 
 class Cliente(models.Model):
