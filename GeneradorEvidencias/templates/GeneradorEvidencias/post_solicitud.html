@@ -1,9 +1,11 @@
-{% extends 'GeneradorEvidencias/base.html' %}
-
+{% load static %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="{% static '/smart-selects/admin/js/chainedfk.js' %}"></script>
+<script type="text/javascript" src="{% static '/smart-selects/admin/js/bindfields.js' %}"></script>
 {% block content %}
     <h1>Generador de Evidencias</h1>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-default">Enviar</button>
+        <button type="submit" class="save btn btn-default">Enviar</button
     </form>
 {% endblock %}
