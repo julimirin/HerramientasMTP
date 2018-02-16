@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'Europe/Madrid'
 
@@ -122,4 +122,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 #Añadido por julian.gonzaleznuevo@gmail.com
-JQUERY_URL = True
+USE_DJANGO_JQUERY = True
