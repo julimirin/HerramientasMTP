@@ -13,11 +13,8 @@ class Cliente(models.Model):
 class Plantilla(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     plantilla = models.FileField(upload_to='GeneradorEvidencias/plantillas/')
-
     def __str__(self):
         return os.path.basename(self.plantilla.name)
-
-
 
 class Entorno(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -33,10 +30,9 @@ class FasePrueba(models.Model):
 
 class Solicitud(models.Model):
     codigo_proyecto = models.CharField(max_length=50)
-    nombre_proyecto = models.CharField(max_length=100)
+    nombre_proyecto = models.CharField(max_length=50)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    plantilla = models.ForeignKey(Plantilla, on_delete=models.CASCADE)
-    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/' , validators=[validate_file_extension])
+    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/')
     entorno = ChainedForeignKey(
         Entorno,
         chained_field="cliente",

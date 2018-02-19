@@ -13,7 +13,7 @@ class FormularioSolicitud(forms.ModelForm):
             "cliente",
             "entorno",
             "fase_de_prueba",
-            "plan_de_pruebas"
+            "plan_de_pruebas",
         ]
 
     def __init__(self, *args, **kwargs):
