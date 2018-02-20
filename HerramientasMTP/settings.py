@@ -123,3 +123,6 @@ STATIC_URL = '/static/'
 
 #Añadido por julian.gonzaleznuevo@gmail.com
 USE_DJANGO_JQUERY = True
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

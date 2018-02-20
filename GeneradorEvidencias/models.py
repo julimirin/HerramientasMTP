@@ -28,11 +28,16 @@ class FasePrueba(models.Model):
     def __str__(self):
         return self.fase_de_prueba
 
+#class PlanPrueba(models.Model):
+#    codigo_proyecto = models.CharField(max_length=50)
+#    nombre_proyecto = models.CharField(max_length=50)
+#    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+#    archivo = models.FileField(upload_to='planes_de_prueba', validators=[validate_file_extension])
+
 class Solicitud(models.Model):
     codigo_proyecto = models.CharField(max_length=50)
     nombre_proyecto = models.CharField(max_length=50)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    plan_de_pruebas = models.FileField(upload_to='GeneradorEvidencias/planes_de_prueba/')
     entorno = ChainedForeignKey(
         Entorno,
         chained_field="cliente",
@@ -47,8 +52,11 @@ class Solicitud(models.Model):
         show_all=False,
         auto_choose=True,
         sort=True)
+    archivo = models.FileField(upload_to='planes_de_prueba', validators=[validate_file_extension])
     def __str__(self):
         return self.codigo_proyecto
+
+
 
 
 

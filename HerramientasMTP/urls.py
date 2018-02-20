@@ -19,9 +19,9 @@ from django.urls import include, path
 from smart_selects import urls as smart_selects_urls
 from django.contrib import admin
 urlpatterns = [
-    path('GeneradorEvidencias/', include('GeneradorEvidencias.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^chaining/', include('smart_selects.urls'))
+    url(r'^chaining/', include('smart_selects.urls')),
+    url(r'^GeneradorEvidencias/', include("GeneradorEvidencias.urls")),
 ]
 
 

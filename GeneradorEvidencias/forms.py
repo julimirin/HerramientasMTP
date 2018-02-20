@@ -1,9 +1,7 @@
 from django import forms
+from .models import Solicitud, FasePrueba
 
-from .models import Solicitud, Cliente, Entorno, FasePrueba
-
-
-class FormularioSolicitud(forms.ModelForm):
+class UploadForm(forms.ModelForm):
 
     class Meta:
         model = Solicitud
@@ -13,15 +11,48 @@ class FormularioSolicitud(forms.ModelForm):
             "cliente",
             "entorno",
             "fase_de_prueba",
-            "plan_de_pruebas",
+            "archivo",
         ]
+
+    def __init__(self, *args, **kwargs):
+        super(UploadForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+                self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+'''
+class FaseForm(forms.ModelForm):
+
+    class Meta:
+        model = Solicitud
+        fields = [
+            "entorno",
+            "fase_de_prueba",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(FaseForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+                self.fields[field].widget.attrs.update({'class': 'form-control'})
+
+
+
+class FormularioSolicitud(forms.ModelForm):
+
+    class Meta:
+        model = Solicitud
+        fields = [
+        "entorno",
+        "fase_de_prueba",
+        "plan_de_prueba",
+        ]
+
 
     def __init__(self, *args, **kwargs):
         super(FormularioSolicitud, self).__init__(*args, **kwargs)
         for field in self.fields:
-            self.fields[field].widget.attrs.update({'class': 'form-control'})
+                self.fields[field].widget.attrs.update({'class': 'form-control'})
 
-
+'''
 
 
 
