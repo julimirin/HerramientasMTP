@@ -8,11 +8,9 @@
 <div class="form-group row">
  <form action="" method="post" enctype="multipart/form-data"  class="post-form">
      <p></p>
-     <legend>Generador de Evidencias</legend>
-        <p>Indica el fichero excell sobre el que quieres obtener las evidencias. Decarga la plantilla <a href="#">aquí</a></strong></p>
+     <legend>Evidencias Generadas</legend>
             {% csrf_token %}
-            {{ form.as_p }}
-        <input type="submit" value="Enviar">
+<p class="text-muted"> Descarga las evidencias <a href="{% get_media_prefix %}evidencias/{{ file }}"}">aquí</a></p>
     </form>
 </div>
 </body>

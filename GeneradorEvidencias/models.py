@@ -6,7 +6,7 @@ from .validators import validate_file_extension
 
 
 class Cliente(models.Model):
-    cliente = models.CharField(max_length=50)
+    cliente = models.CharField(max_length=50, primary_key= True)
     def __str__(self):
         return self.cliente
 
@@ -19,20 +19,18 @@ class Plantilla(models.Model):
 class Entorno(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     entorno = models.CharField(max_length=50)
+    class Meta:
+        unique_together = (('cliente', 'entorno'),)
     def __str__(self):
         return self.entorno
 
 class FasePrueba(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     fase_de_prueba = models.CharField(max_length=50)
+    class Meta:
+        unique_together = (('cliente', 'fase_de_prueba'),)
     def __str__(self):
         return self.fase_de_prueba
-
-#class PlanPrueba(models.Model):
-#    codigo_proyecto = models.CharField(max_length=50)
-#    nombre_proyecto = models.CharField(max_length=50)
-#    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-#    archivo = models.FileField(upload_to='planes_de_prueba', validators=[validate_file_extension])
 
 class Solicitud(models.Model):
     codigo_proyecto = models.CharField(max_length=50)
@@ -55,6 +53,28 @@ class Solicitud(models.Model):
     archivo = models.FileField(upload_to='planes_de_prueba', validators=[validate_file_extension])
     def __str__(self):
         return self.codigo_proyecto
+
+
+class CasoPrueba(models.Model):
+    solicitud = models.ForeignKey(Solicitud, on_delete=models.CASCADE)
+    codigo_caso = models.CharField(max_length=6)
+    nombre_caso = models.CharField(max_length=50)
+    descripcion_caso = models.CharField(max_length=500)
+    def __str__(self):
+        return self.codigo_caso
+
+class PasoPrueba(models.Model):
+    codigo_caso = models.ForeignKey(CasoPrueba, on_delete=models.CASCADE)
+    numero_paso = models.CharField(max_length=10)
+    descripcion_paso = models.CharField(max_length=500)
+    resultado_paso = models.CharField(max_length=500, null=True)
+    class Meta:
+        unique_together = (('codigo_caso', 'numero_paso'),)
+    def __str__(self):
+        return self.numero_paso
+
+
+
 
 
 

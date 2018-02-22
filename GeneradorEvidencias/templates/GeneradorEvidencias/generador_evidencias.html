@@ -1,0 +1,21 @@
+{% extends 'GeneradorEvidencias/base.html' %}
+{% load static %}
+{% block content %}
+<html>
+<head>
+</head>
+<body>
+<div class="form-group row">
+ <form action="" method="post" enctype="multipart/form-data"  class="post-form">
+     <p></p>
+     <legend>Generador de Evidencias</legend>
+     <p>Indica en el archivo los casos de prueba sobre los que quieres generar las evidencias.</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+<p class="text-muted"> Descarga la <a href="{% static "plantilla_casos_de_prueba/casos_de_prueba.xlsx" %}">plantilla</a></p>
+        <input type="submit" value="Enviar">
+    </form>
+</div>
+</body>
+</html>
+{% endblock %}
