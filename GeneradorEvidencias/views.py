@@ -8,6 +8,9 @@ from docx import Document
 import zipfile
 import os, shutil
 import time
+from django.conf import settings
+
+my_media_root = settings.MEDIA_ROOT
 
 def generar_evidencias(request):
     if request.method == 'POST':
@@ -110,6 +113,8 @@ def insertar_solicitud(solicitud):
 
 def generar_documentos(solicitud):
 
+
+
     for caso_prueba in CasoPrueba.objects.filter(solicitud = solicitud.pk) :
         plantilla = Plantilla.objects.get(cliente=solicitud.cliente)
         tpl = DocxTemplate(plantilla.plantilla)
@@ -124,10 +129,10 @@ def generar_documentos(solicitud):
             'nombre_caso': caso_prueba.nombre_caso
         }
         tpl.render(context)
-        tpl.save("media/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
+        tpl.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
         for paso in PasoPrueba.objects.filter(codigo_caso = caso_prueba):
             print(caso_prueba.codigo_caso,paso.numero_paso)
-            document = Document("media/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
+            document = Document(my_media_root +"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
             p = document.add_paragraph()
             p.add_run(paso.numero_paso).bold = True
             p.add_run(': ').bold = True
@@ -135,24 +140,24 @@ def generar_documentos(solicitud):
             p = document.add_paragraph('')
             p.add_run('Resultado Esperado: ').italic = True
             p.add_run(paso.resultado_paso).italic = True
-            document.save("media/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
+            document.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
 
 def generar_documentos_zip(solicitud):
 
     nombre_archivo = solicitud.codigo_proyecto + time.strftime("%Y%m%d-%H%M%S") + '.zip'
-    documentos_zip = zipfile.ZipFile('media/evidencias/'+ nombre_archivo , 'w')
+    documentos_zip = zipfile.ZipFile(my_media_root+'/evidencias/'+ nombre_archivo , 'w')
 
-    for folder, subfolders, files in os.walk('media/evidencias/'):
+    for folder, subfolders, files in os.walk(my_media_root+'/evidencias/'):
         for file in files:
             if file.endswith('.docx'):
                 documentos_zip.write(os.path.join(folder, file),
-                                  os.path.relpath(os.path.join(folder, file), 'media/evidencias/'),
+                                  os.path.relpath(os.path.join(folder, file), my_media_root+'/evidencias/'),
                                   compress_type=zipfile.ZIP_DEFLATED)
 
     documentos_zip.close()
 
     #Borramos los word
-    directory = 'media/evidencias/'
+    directory = my_media_root+'/evidencias/'
     test = os.listdir(directory)
 
     for item in test:
