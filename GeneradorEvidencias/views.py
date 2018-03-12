@@ -11,8 +11,13 @@ import zipfile
 import os, shutil
 import time
 from django.conf import settings
+import unicodedata
 
 my_media_root = settings.MEDIA_ROOT
+
+
+def elimina_tildes(s):
+   return ''.join((c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn'))
 
 def generar_evidencias(request):
     if request.method == 'POST':
@@ -142,7 +147,7 @@ def generar_documentos(solicitud):
             p = document.add_paragraph('')
             p.add_run('Resultado Esperado: ').italic = True
             p.add_run(paso.resultado_paso).italic = True
-            document.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
+            document.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + elimina_tildes(caso_prueba.nombre_caso) + '.docx')
 
 def generar_documentos_zip(solicitud):
 
