@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect  # puedes importar render_to_response
 from .forms import GenerarForm
 from .models import  Cliente, Solicitud, CasoPrueba, PasoPrueba, Plantilla
