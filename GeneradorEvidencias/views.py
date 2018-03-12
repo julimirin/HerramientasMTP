@@ -136,7 +136,7 @@ def generar_documentos(solicitud):
             'nombre_caso': caso_prueba.nombre_caso
         }
         tpl.render(context)
-        tpl.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
+        tpl.save(my_media_root+"/evidencias/"+ caso_prueba.codigo_caso + " " + elimina_tildes(caso_prueba.nombre_caso) + '.docx')
         for paso in PasoPrueba.objects.filter(codigo_caso = caso_prueba):
             print(caso_prueba.codigo_caso,paso.numero_paso)
             document = Document(my_media_root +"/evidencias/"+ caso_prueba.codigo_caso + " " + caso_prueba.nombre_caso + '.docx')
